@@ -37,7 +37,7 @@ export default function LoginPage() {
             console.log('Login realizado com sucesso:', data)
             
             // Salva o token de autenticação
-            document.cookie = `auth-token=${data.token}; path=/; max-age=86400`
+            document.cookie = `auth-token=${data.access_token}; path=/; max-age=86400`
             
             // Aguarda um momento para garantir que o cookie foi salvo
             setTimeout(() => {

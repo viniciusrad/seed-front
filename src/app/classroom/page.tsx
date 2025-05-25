@@ -1,73 +1,66 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 // import "./turmas.css"
 import styles from "./turmas.module.css"
 import { useRouter } from "next/navigation"
+
 interface Turma {
   id: string
   nome: string
-  idade: string
-  totalAlunos: number
-  professoraResponsavel: string
-  periodo: string
-  sala: string
-  cor: string
+  nivel: string
+  turno: string
+  horario: {
+    inicio: string
+    fim: string
+    diasSemana: string[]
+  }
+  institution: {
+    nome: string
+  }
+  teachers: Array<{
+    id: string
+    user: {
+      name: string
+    }
+  }>
+  createdAt: string
+  updatedAt: string
+  deletedAt: string | null
 }
 
 export default function TurmasPage() {
   const router = useRouter();
-  const [turmas] = useState<Turma[]>([
-    {
-      id: "1",
-      nome: "Berçário I",
-      idade: "4-12 meses",
-      totalAlunos: 8,
-      professoraResponsavel: "Ana Silva",
-      periodo: "Integral",
-      sala: "Sala 01",
-      cor: "pink",
-    },
-    {
-      id: "2",
-      nome: "Berçário II",
-      idade: "1-2 anos",
-      totalAlunos: 12,
-      professoraResponsavel: "Maria Santos",
-      periodo: "Integral",
-      sala: "Sala 02",
-      cor: "blue",
-    },
-    {
-      id: "3",
-      nome: "Maternal I",
-      idade: "2-3 anos",
-      totalAlunos: 15,
-      professoraResponsavel: "Carla Oliveira",
-      periodo: "Manhã",
-      sala: "Sala 03",
-      cor: "green",
-    },
-    {
-      id: "4",
-      nome: "Maternal II",
-      idade: "3-4 anos",
-      totalAlunos: 18,
-      professoraResponsavel: "Lucia Costa",
-      periodo: "Tarde",
-      sala: "Sala 04",
-      cor: "orange",
-    },
-    {
-      id: "5",
-      nome: "Pré-Escola",
-      idade: "4-5 anos",
-      totalAlunos: 20,
-      professoraResponsavel: "Sandra Lima",
-      periodo: "Integral",
-      sala: "Sala 05",
-      cor: "purple",
-    },
-  ])
+
+  const [turmas, setTurmas] = useState<Turma[]>([])
+
+  const buscarTurmas = async () => {
+    try {
+      // Obtém o token de acesso do cookie
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('auth-token='))?.split('=')[1]
+      
+      if (!accessToken) {
+        console.error('Token de acesso não encontrado')
+        router.push('/login')
+        return
+      }
+
+      const response = await fetch("http://localhost:3000/classrooms", {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setTurmas(data)
+    } catch (error) {
+      console.error('Erro ao buscar turmas:', error)
+    }
+  }
 
   const handleTurmaClick = (turmaId: string) => {
     console.log(`Visualizar turma: ${turmaId}`)
@@ -78,10 +71,12 @@ export default function TurmasPage() {
   }
 
   const handleBack = () => {
-    console.log("Voltar ao dashboard")
-    // Aqui você implementaria a navegação de volta
     router.push("/home")
   }
+
+  useEffect(() => {
+    buscarTurmas()
+  }, [])
 
   return (
     <div className={styles.turmasContainer}>
@@ -103,38 +98,49 @@ export default function TurmasPage() {
         {/* Turmas List */}
         <div className={styles.turmasList}>
           {turmas.map((turma) => (
-            <div key={turma.id} className={`${styles.turmaCard} ${turma.cor}`} onClick={() => handleTurmaClick(turma.id)}>
+            <div key={turma.id} className={`${styles.turmaCard}`} onClick={() => handleTurmaClick(turma.id)}>
               <div className={styles.turmaHeader}>
                 <div className={styles.turmaInfo}>
                   <h3>{turma.nome}</h3>
-                  <span className={styles.idadeBadge}>{turma.idade}</span>
+                  <span className={styles.idadeBadge}>{turma.nivel}</span>
                 </div>
                 <div className={styles.alunosCount}>
-                  <span className={styles.countNumber}>{turma.totalAlunos}</span>
-                  <span className={styles.countLabel}>alunos</span>
+                  <span className={styles.countNumber}>{turma.teachers.length}</span>
+                  <span className={styles.countLabel}>professores</span>
                 </div>
               </div>
 
               <div className={styles.turmaDetails}>
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>👩‍🏫</span>
-                  <span className={styles.detailText}>{turma.professoraResponsavel}</span>
+                  <span className={styles.detailText}>
+                    {turma.teachers.map(teacher => teacher.user.name).join(', ')}
+                  </span>
                 </div>
 
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>🕐</span>
-                  <span className={styles.detailText}>{turma.periodo}</span>
+                  <span className={styles.detailText}>
+                    {turma.horario.inicio} - {turma.horario.fim}
+                  </span>
                 </div>
 
                 <div className={styles.detailItem}>
-                  <span className={styles.detailIcon}>🚪</span>
-                  <span className={styles.detailText}>{turma.sala}</span>
+                  <span className={styles.detailIcon}>📅</span>
+                  <span className={styles.detailText}>
+                    {turma.horario.diasSemana.length == 5 ? "Todos os dias" : turma.horario.diasSemana.join(', ')}
+                  </span>
                 </div>
+
+                {/* <div className={styles.detailItem}>
+                  <span className={styles.detailIcon}>🏫</span>
+                  <span className={styles.detailText}>{turma.institution.nome}</span>
+                </div> */}
               </div>
 
               <div className={styles.turmaActions}>
-                <button className={styles.actionButton} >👁️ Ver detalhes</button>
-                <button className={styles.actionButton} >✏️ Editar</button>
+                <button className={styles.actionButton}>👁️ Ver detalhes</button>
+                <button className={styles.actionButton}>✏️ Editar</button>
               </div>
             </div>
           ))}
