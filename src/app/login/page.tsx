@@ -1,17 +1,20 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import "./login.css"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [userType, setUserType] = useState("funcionario")
+    const [erro, setErro] = useState("")
+    const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setErro("")
         console.log("Login attempt:", { email, password, userType })
 
         try {
@@ -32,9 +35,19 @@ export default function LoginPage() {
 
             const data = await response.json()
             console.log('Login realizado com sucesso:', data)
+            
+            // Salva o token de autenticação
+            document.cookie = `auth-token=${data.token}; path=/; max-age=86400`
+            
+            // Aguarda um momento para garantir que o cookie foi salvo
+            setTimeout(() => {
+                router.push('/home')
+                router.refresh() // Força a atualização da rota
+            }, 100)
 
         } catch (error) {
             console.error('Erro ao fazer login:', error)
+            setErro('Email ou senha inválidos')
         }
     }
 
@@ -57,6 +70,8 @@ export default function LoginPage() {
                         }}
                     />
                 </div>
+
+                {erro && <div className="erro-mensagem">{erro}</div>}
 
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="input-group">
