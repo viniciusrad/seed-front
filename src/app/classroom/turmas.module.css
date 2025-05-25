@@ -1,0 +1,368 @@
+.turmasContainer {
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.turmasContent {
+  width: 100%;
+  max-width: 400px;
+  background: #f5f1eb;
+  border-radius: 24px;
+  padding: 30px 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-height: 90vh;
+}
+
+.turmasContent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.backButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #e8ddd4, #f5f1eb);
+  color: #5a5a5a;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.backButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.headerInfo h1 {
+  color: #5a5a5a;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.headerInfo p {
+  color: #8a8a8a;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.headerIcon {
+  font-size: 24px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Turmas List */
+.turmasList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 5px;
+}
+
+.turmasList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.turmasList::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.turmasList::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.turmasList::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Turma Card */
+.turmaCard {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-left: 4px solid transparent;
+}
+
+.turmaCardPink {
+  border-left-color: #ff9eb5;
+}
+.turmaCardBlue {
+  border-left-color: #6ba3b8;
+}
+.turmaCardGreen {
+  border-left-color: #7fb069;
+}
+.turmaCardOrange {
+  border-left-color: #e8a87c;
+}
+.turmaCardPurple {
+  border-left-color: #b19cd9;
+}
+
+.turmaCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.turmaCard:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Turma Header */
+.turmaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.turmaInfo h3 {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.idadeBadge {
+  background: linear-gradient(145deg, #e8ddd4, #d4c9be);
+  color: #5a5a5a;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alunosCount {
+  text-align: center;
+  background: linear-gradient(145deg, #f5f1eb, #e8ddd4);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.countNumber {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: #5a5a5a;
+  line-height: 1;
+}
+
+.countLabel {
+  font-size: 11px;
+  color: #8a8a8a;
+  font-weight: 500;
+}
+
+/* Turma Details */
+.turmaDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  text-align: center;
+}
+
+.detailIcon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.detailText {
+  color: #5a5a5a;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Turma Actions */
+.turmaActions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.actionButtonView {
+  background: linear-gradient(145deg, #6ba3b8, #5a92a5);
+  color: white;
+}
+
+.actionButtonEdit {
+  background: linear-gradient(145deg, #e8a87c, #d4956b);
+  color: white;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add Section */
+.addSection {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+}
+
+.addTurmaButton {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #7fb069, #6a9c57);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(127, 176, 105, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.addTurmaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(127, 176, 105, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.addTurmaButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(127, 176, 105, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.addIcon {
+  font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .turmasContainer {
+    padding: 10px;
+  }
+
+  .turmasContent {
+    padding: 25px 20px;
+    gap: 20px;
+  }
+
+  .headerInfo h1 {
+    font-size: 20px;
+  }
+
+  .turmaCard {
+    padding: 16px;
+  }
+
+  .turmaInfo h3 {
+    font-size: 16px;
+  }
+
+  .turmasContent {
+    max-height: 95vh;
+  }
+}
+
+@media (max-width: 360px) {
+  .turmaHeader {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .alunosCount {
+    align-self: flex-end;
+  }
+
+  .turmaDetails {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detailItem {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 10px;
+  }
+
+  .turmaActions {
+    flex-direction: column;
+  }
+}
+  
