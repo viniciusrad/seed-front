@@ -2,6 +2,7 @@
 import { useState } from "react"
 import "./home.css"
 import SideMenu from "../components/SideMenu"
+import { useRouter } from "next/navigation"
 
 interface DashboardCard {
     id: string
@@ -14,6 +15,7 @@ interface DashboardCard {
 
 export default function HomePage() {
     const [userType] = useState("administrador") // Pode vir do contexto de autenticação
+    const router = useRouter();
 
     const dashboardData: DashboardCard[] = [
         {
@@ -63,6 +65,9 @@ export default function HomePage() {
 
     const handleCardClick = (cardId: string) => {
         console.log(`Navegando para: ${cardId}`)
+        if (cardId === 'classroom') {
+            router.push('/classroom')
+        }
     }
 
     const handleAddClick = () => {
@@ -94,22 +99,15 @@ export default function HomePage() {
                     {/* Header */}
                     <div className="header">
                         <div className="user-info">
-                            <div className="user-avatar">
-                                <div className="avatar-face">
-                                    <div className="eyes">
-                                        <div className="eye left"></div>
-                                        <div className="eye right"></div>
-                                    </div>
-                                    <div className="glasses">
-                                        <div className="lens left"></div>
-                                        <div className="lens right"></div>
-                                        <div className="bridge"></div>
-                                    </div>
-                                    <div className="mouth"></div>
-                                </div>
-                            </div>
+                            <img 
+                                src="/seed-logo.png"
+                                alt="SEED Logo"
+                                width={48}
+                                height={48}
+                                className="user-avatar"
+                            />
                             <div className="user-details">
-                                <h1>Dashboard</h1>
+                                <h1>Página Inicial</h1>
                                 <p>Administrador</p>
                             </div>
                         </div>
@@ -119,7 +117,7 @@ export default function HomePage() {
                     {/* Dashboard Grid */}
                     <div className="dashboard-grid">
                         {dashboardData.map((card) => (
-                            <div key={card.id} className={`dashboard-card ${card.color}`} onClick={() => handleCardClick(card.id)}>
+                            <div key={card.id} className={`dashboard-card ${card.color}`} onClick={() => handleCardClick('classroom')}>
                                 <div className="card-content">
                                     <div className="card-icon">{card.icon}</div>
                                     {card.value && (
