@@ -25,7 +25,8 @@ export default function LoginPage() {
                 },
                 body: JSON.stringify({
                     email,
-                    password
+                    password,
+                    role: userType
                 })
             })
 
@@ -38,6 +39,9 @@ export default function LoginPage() {
             
             // Salva o token de autenticação
             document.cookie = `auth-token=${data.access_token}; path=/; max-age=86400`
+            localStorage.setItem('seed_userType', userType)
+            localStorage.setItem('seed_authToken', data.access_token)
+            localStorage.setItem('seed_institution', data.institution.id)
             
             // Aguarda um momento para garantir que o cookie foi salvo
             setTimeout(() => {
@@ -98,7 +102,7 @@ export default function LoginPage() {
                         <select value={userType} onChange={(e) => setUserType(e.target.value)}>
                             <option value="funcionario">👨‍🏫 Funcionário</option>
                             <option value="responsavel">👨‍👩‍👧‍👦 Responsável</option>
-                            <option value="administrador">⚙️ Administrador</option>
+                            <option value="admin">⚙️ Administrador</option>
                         </select>
                     </div>
 
