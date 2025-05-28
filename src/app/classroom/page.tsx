@@ -67,7 +67,7 @@ export default function TurmasPage() {
   }
 
   const handleAddTurma = () => {
-    console.log("Adicionar nova turma")
+    router.push("/classroom/cadastrar")
   }
 
   const handleBack = () => {

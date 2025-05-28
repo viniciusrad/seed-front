@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import type React from "react"
+import { useRouter } from "next/navigation"
 
 import "./cadastro-turma.css"
 
@@ -37,6 +38,7 @@ export default function CadastroTurmaPage() {
         institutionId: "",
         teacherIds: [],
     })
+    const router = useRouter()
 
     const [isLoading, setIsLoading] = useState(false)
     //TODO: remover mock
@@ -75,13 +77,28 @@ export default function CadastroTurmaPage() {
 
 
     useEffect(() => {
-        const fetchTeachers = async () => {
-            const response = await fetch("http://localhost:3000/teachers")
+
+        const institutionId = localStorage.getItem('seed_institution') || null
+        const fetchTeachers = async (id_institution: string) => {
+            const response = await fetch(`http://localhost:3000/users/teacher/institution/${id_institution}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('seed_authToken')}`
+                }
+            })
+
             const data = await response.json()
-            // setTeachers(data)
-            console.log(data)
+            let arrayTeachers: any[] = []
+            data.forEach((teacher: { id: string, user: { name: string }, especializacao: string }) => {
+                arrayTeachers.push({
+                    id: teacher.id.toString(),
+                    nome: teacher.user.name,
+                    especialidade: teacher.especializacao
+                })
+            })
+            setTeachers(arrayTeachers)
+
         }
-        fetchTeachers()
+        if (institutionId) fetchTeachers(institutionId)
     }, [])
 
     const handleInputChange = (field: keyof FormData, value: string | string[]) => {
@@ -111,6 +128,7 @@ export default function CadastroTurmaPage() {
         e.preventDefault()
         setIsLoading(true)
 
+        const institutionId = localStorage.getItem('seed_institution') || null
         try {
             // Preparar dados para envio
             const payload = {
@@ -125,8 +143,8 @@ export default function CadastroTurmaPage() {
                             diasSemana: formData.diasSemana,
                         }
                         : null,
-                institutionId: formData.institutionId,
-                teacherIds: formData.teacherIds,
+                institution_id: institutionId,
+                teacher_ids: formData.teacherIds,
             }
 
             // URL a ser definida
@@ -134,6 +152,7 @@ export default function CadastroTurmaPage() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('seed_authToken')}`
                 },
                 body: JSON.stringify(payload),
             })
@@ -153,8 +172,8 @@ export default function CadastroTurmaPage() {
     }
 
     const handleBack = () => {
-        console.log("Voltar para listagem de turmas")
-        // Implementar navegação
+
+        router.push("/classroom")
     }
 
     return (
@@ -301,7 +320,7 @@ export default function CadastroTurmaPage() {
                         <button type="button" className="cancel-button" onClick={handleBack}>
                             Cancelar
                         </button>
-                        <button type="submit" className="submit-button" disabled={isLoading}>
+                        <button type="submit" className="submit-button" disabled={isLoading} onClick={handleSubmit}>
                             {isLoading ? "Cadastrando..." : "Cadastrar Turma"}
                         </button>
                     </div>
