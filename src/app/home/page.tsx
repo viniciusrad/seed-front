@@ -11,6 +11,7 @@ interface DashboardCard {
     icon: string
     color: string
     hasNotification?: boolean
+    onClick?: () => void
 }
 
 export default function HomePage() {
@@ -24,6 +25,7 @@ export default function HomePage() {
             value: 5,
             icon: "🏫",
             color: "orange",
+            onClick: () => router.push('/classroom')
         },
         {
             id: "alunos",
@@ -38,6 +40,7 @@ export default function HomePage() {
             value: 8,
             icon: "👩‍🏫",
             color: "brown",
+            onClick: () => router.push('/teacher')
         },
         {
             id: "notificacoes",
@@ -117,7 +120,7 @@ export default function HomePage() {
                     {/* Dashboard Grid */}
                     <div className="dashboard-grid">
                         {dashboardData.map((card) => (
-                            <div key={card.id} className={`dashboard-card ${card.color}`} onClick={() => handleCardClick('classroom')}>
+                            <div key={card.id} className={`dashboard-card ${card.color}`} onClick={card.onClick}>
                                 <div className="card-content">
                                     <div className="card-icon">{card.icon}</div>
                                     {card.value && (
