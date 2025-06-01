@@ -15,8 +15,9 @@ interface DashboardCard {
 }
 
 export default function HomePage() {
-    const [userType] = useState("administrador") // Pode vir do contexto de autenticação
-    const router = useRouter();
+    const [userType] = useState("administrador")
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const router = useRouter()
 
     const dashboardData: DashboardCard[] = [
         {
@@ -33,6 +34,7 @@ export default function HomePage() {
             value: 120,
             icon: "👶",
             color: "coral",
+            onClick: () => router.push('/student')
         },
         {
             id: "professores",
@@ -78,7 +80,17 @@ export default function HomePage() {
     }
 
     const handleMenuClick = () => {
-        console.log("Abrir menu")
+        setIsMenuOpen(true)
+    }
+
+    const handleCloseMenu = () => {
+        setIsMenuOpen(false)
+    }
+
+    const handleMenuClickOutside = (e: React.MouseEvent) => {
+        if (e.target === e.currentTarget) {
+            handleCloseMenu()
+        }
     }
 
     const handleReportsClick = () => {
@@ -89,16 +101,14 @@ export default function HomePage() {
         console.log("Sair")
         // Limpa o cookie de autenticação
         document.cookie = 'auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-
         // Redireciona para a página de login
         window.location.href = '/login';
     }
 
     return (
         <SideMenu onLogout={handleLogout}>
-
             <div className="home-container">
-                <div className="home-content">
+                <div className={`home-content ${isMenuOpen ? 'menu-open' : ''}`}>
                     {/* Header */}
                     <div className="header">
                         <div className="user-info">
@@ -114,7 +124,6 @@ export default function HomePage() {
                                 <p>Administrador</p>
                             </div>
                         </div>
-                        <div className="gear-icon">⚙️</div>
                     </div>
 
                     {/* Dashboard Grid */}
@@ -150,6 +159,30 @@ export default function HomePage() {
                             <span className="button-icon">💬</span>
                             Relatórios
                         </button>
+                    </div>
+
+                    {/* Menu Expandido */}
+                    <div className={`menu-overlay ${isMenuOpen ? 'active' : ''}`} onClick={handleMenuClickOutside}>
+                        <div className={`menu-expanded ${isMenuOpen ? 'active' : ''}`}>
+                            <div className="menu-header">
+                                <h2 className="menu-title">Menu</h2>
+                                <button className="menu-close" onClick={handleCloseMenu}>×</button>
+                            </div>
+                            <div className="menu-items">
+                                <a href="/profile" className="menu-item">
+                                    <span className="menu-item-icon">👤</span>
+                                    <span className="menu-item-text">Perfil</span>
+                                </a>
+                                <a href="/settings" className="menu-item">
+                                    <span className="menu-item-icon">⚙️</span>
+                                    <span className="menu-item-text">Configurações</span>
+                                </a>
+                                <button className="menu-item logout" onClick={handleLogout}>
+                                    <span className="menu-item-icon">🚪</span>
+                                    <span className="menu-item-text">Sair</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
