@@ -73,8 +73,8 @@ export default function HomePage() {
         }
     }
 
-    const handleAddClick = () => {
-        console.log("Adicionar novo item")
+    const handleCadAluno = () => {
+        router.push('/student/register')
     }
 
     const handleMenuClick = () => {
@@ -137,7 +137,7 @@ export default function HomePage() {
 
                     {/* Bottom Navigation */}
                     <div className="bottom-nav">
-                        <button className="nav-button add-button" onClick={handleAddClick}>
+                        <button className="nav-button add-button" onClick={handleCadAluno}>
                             <span className="button-icon">➕</span>
                             Cad. Alunos
                         </button>
