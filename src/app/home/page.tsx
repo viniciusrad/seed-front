@@ -139,7 +139,7 @@ export default function HomePage() {
                     <div className="bottom-nav">
                         <button className="nav-button add-button" onClick={handleAddClick}>
                             <span className="button-icon">➕</span>
-                            Adicionar
+                            Cad. Alunos
                         </button>
 
                         <button className="nav-button menu-button" onClick={handleMenuClick}>
