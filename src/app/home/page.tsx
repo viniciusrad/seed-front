@@ -37,6 +37,14 @@ export default function HomePage() {
             onClick: () => router.push('/student')
         },
         {
+            id: "responsaveis",
+            title: "Responsáveis", 
+            value: 120,
+            icon: "👨‍👩‍👧‍👦",
+            color: "coral",
+            onClick: () => router.push('/parent')
+        },
+        {
             id: "professores",
             title: "Professores",
             value: 8,
