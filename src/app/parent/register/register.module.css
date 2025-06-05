@@ -1,0 +1,171 @@
+.container {
+    padding: 2rem;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.header h1 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: #666;
+}
+
+.errorMessage {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.section h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.emergencyContacts {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.emergencyContact {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+}
+
+.emergencyContact p {
+    margin: 0.25rem 0;
+}
+
+.removeButton {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.removeButton:hover {
+    background-color: #fecaca;
+}
+
+.newEmergencyContact {
+    display: grid;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.addButton {
+    background-color: #e0f2fe;
+    color: #0284c7;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.addButton:hover {
+    background-color: #bae6fd;
+}
+
+.formActions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.cancelButton {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.cancelButton:hover {
+    background-color: #e5e7eb;
+}
+
+.submitButton {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.submitButton:hover {
+    background-color: #2563eb;
+}
+
+.submitButton:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+} 
