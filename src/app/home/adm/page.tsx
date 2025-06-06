@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import "./home.css"
-import SideMenu from "../components/SideMenu"
+import SideMenu from "../../components/SideMenu"
 import { useRouter } from "next/navigation"
 
 interface DashboardCard {

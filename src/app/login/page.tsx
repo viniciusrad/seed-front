@@ -36,17 +36,33 @@ export default function LoginPage() {
 
             const data = await response.json()
             console.log('Login realizado com sucesso:', data)
-            
+
             // Salva o token de autenticação
             document.cookie = `auth-token=${data.access_token}; path=/; max-age=86400`
             localStorage.setItem('seed_userType', userType)
             localStorage.setItem('seed_authToken', data.access_token)
             localStorage.setItem('seed_institution', data.institution.id)
-            
+
             // Aguarda um momento para garantir que o cookie foi salvo
             setTimeout(() => {
-                router.push('/home')
-                router.refresh() // Força a atualização da rota
+                switch (userType) {
+                    case 'admin':
+                        router.push('/home/adm')
+                        break
+                    case 'coordinator':
+                        router.push('/home/coordinator')
+                        break
+                    case 'teacher':
+                        router.push('/home')
+                        break
+                    case 'parent':
+                        router.push('/parent')
+                        break
+                    default:
+                        router.push('/home')
+                        break
+                }
+                router.refresh()
             }, 100)
 
         } catch (error) {
@@ -100,8 +116,9 @@ export default function LoginPage() {
 
                     <div className="input-group">
                         <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-                            <option value="funcionario">👨‍🏫 Funcionário</option>
-                            <option value="responsavel">👨‍👩‍👧‍👦 Responsável</option>
+                            <option value="parent">👨‍👩‍👧‍👦 Responsável</option>
+                            <option value="teacher">👨‍🏫 Professor</option>
+                            <option value="coordinator">👨‍🏫 Coordenador</option>
                             <option value="admin">⚙️ Administrador</option>
                         </select>
                     </div>
