@@ -41,7 +41,7 @@ export default function LoginPage() {
             document.cookie = `auth-token=${data.access_token}; path=/; max-age=86400`
             localStorage.setItem('seed_userType', data.role)
             localStorage.setItem('seed_authToken', data.access_token)
-            localStorage.setItem('seed_institution', data.institution.id)
+            localStorage.setItem('seed_institution', data.institution.id || data.institution) //TODO: verificar retorno dos diferentes tipos de usuarios
 
             // Aguarda um momento para garantir que o cookie foi salvo
             setTimeout(() => {

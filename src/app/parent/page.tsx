@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import styles from "./parent.module.css"
+import FeedNoticias from "../components/feedNoticias"
 
 interface Parent {
     id: string
@@ -119,6 +120,10 @@ export default function ParentPage() {
                     <div className={styles.headerIcon}>👨‍👩‍👧‍👦</div>
                 </div>
 
+                <div className={styles.container}>
+                    <FeedNoticias />
+                </div>
+
                 <div className={styles.searchSection}>
                     <input
                         type="text"
@@ -190,13 +195,6 @@ export default function ParentPage() {
                     ))}
                 </div>
 
-                <button
-                    className={styles.addButton}
-                    onClick={handleAddParent}
-                    title="Adicionar Responsável"
-                >
-                    Adicionar Responsável
-                </button>
             </div>
         </div>
     )
