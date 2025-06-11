@@ -1,38 +1,88 @@
 .feedContainer {
   padding: 20px;
-  max-width: 1200px;
+  width: 95%;
   margin: 0 auto;
+  height: 50vh;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .titulo {
   font-size: 24px;
   color: #333;
   margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
 }
 
 .listaNoticias {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
 }
 
 .noticiaCard {
   background: #fff;
   border-radius: 8px;
-  padding: 20px;
+  padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-height: 80px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.noticiaCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.noticiaCard.expandida {
+  max-height: 1000px;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+}
+
+.noticiaConteudo {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.noticiaCard.expandida .noticiaConteudo {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .noticiaHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.noticiaCard.expandida .noticiaHeader {
   margin-bottom: 15px;
 }
 
 .noticiaTitulo {
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
   margin: 0;
+  transition: font-size 0.3s ease;
+}
+
+.noticiaCard.expandida .noticiaTitulo {
+  font-size: 18px;
 }
 
 .noticiaType {
@@ -61,6 +111,11 @@
   color: #666;
   margin-bottom: 15px;
   line-height: 1.5;
+  display: none;
+}
+
+.noticiaCard.expandida .noticiaMessage {
+  display: block;
 }
 
 .noticiaImagem {
@@ -69,9 +124,18 @@
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 15px;
+  display: none;
+}
+
+.noticiaCard.expandida .noticiaImagem {
+  display: block;
 }
 
 .noticiaRodape {
+  display: none;
+}
+
+.noticiaCard.expandida .noticiaRodape {
   display: flex;
   justify-content: space-between;
   align-items: center;
